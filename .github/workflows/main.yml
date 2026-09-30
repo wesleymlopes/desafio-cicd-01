@@ -27,6 +27,7 @@ jobs:
   testes:
     needs: [build]
     uses: wesleymlopes/desafio-cicd-01/.github/workflows/testes.yml@main
+    secrets: inherit
 
   release:
     name: Criação de release
