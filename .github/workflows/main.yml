@@ -24,5 +24,28 @@ jobs:
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
 
-       
+release:
+  name: Criação de release
+  runs-on: ubuntu-latest
+  steps:
+      - name: obtendo o codigo do projeto
+        uses: actions/checkout@v4
+        
+      - name: Login to OCIR
+        uses: docker/login-action@v3
+        with:
+          registry: gru.ocir.io
+          username: ${{ secrets.OCI_USERNAME }}
+          password: ${{ secrets.OCI_TOKEN }}
+
+      - name: Build e Push da imagem docker
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          context: ./src
+          file: ./src/Review-Filmes.Web/Dockerfile
+          tags: |
+            gru.ocir.io/grglog7bpvjm/projeto-devops-pro:v${{ github.run_number }}
+            gru.ocir.io/grglog7bpvjm/projeto-devops-pro:latest
+
         
