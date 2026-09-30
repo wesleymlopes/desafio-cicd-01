@@ -62,7 +62,7 @@ jobs:
       - name: Setup do jdk
         uses: actions/setup-java@v6
         with:
-          distribution: adopt
+          distribution: temurin
           java-version: '25'
 
       - name: Instalação scan sonarqube
