@@ -71,9 +71,22 @@ jobs:
       - name: Build and analyse
         working-directory: ./src
         run: | 
-          dotnet sonarscanner begin /k:"filme" /d:sonar.host.url="http://137.131.187.93:9000"  /d:sonar.token="sqp_a7eae0406d449911d033fd15f59af42c40db6bef"
+          dotnet sonarscanner begin /k:"filme" /d:sonar.host.url="${{secrets.SONAR_HOST_URL}}"  /d:sonar.token="${{secrets.SONAR_TOKEN}}"
           dotnet build Review-Filmes.sln
-          dotnet sonarscanner end /d:sonar.token="sqp_a7eae0406d449911d033fd15f59af42c40db6bef"
+          dotnet sonarscanner end /d:sonar.token="${{secrets.SONAR_TOKEN}}"
+
+      - name: Verificação do Quality Gate
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        id: sonarqube-quality-gate-check
+        env:
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+          SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+        with:
+          scanMetadataReportFile: ./src/.sonarqube/.sonar/report-task.txt
+
+      - name: Exibir status quality gate
+        if: ${{always()}}
+        run: echo "O status do quality gate é ${{steps.sonarqube-quality-gate-check.outputs.quality-gate-status}}"
       
       
 
