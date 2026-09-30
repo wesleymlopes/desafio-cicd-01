@@ -47,5 +47,39 @@ jobs:
         env: 
           ConnectionStrings__DefaultConnection: "Host=localhost;Database=review;Username=review;Password=Passw0rd2023!"
 
+  sonarqube:
+    name: Scan com sonarqube
+    runs-on: ubuntu-latest
+    steps:
+      - name: obtendo o codigo do projeto
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.300"
+
+      - name: Setup do jdk
+        uses: actions/setup-java@v6
+        with:
+          java-version: '25'
+
+      - name: Instalação scan sonarqube
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Build and analyse
+        working-directory: ./src
+        run: | 
+          dotnet sonarscanner begin /k:"filme" /d:sonar.host.url="http://137.131.187.93:9000"  /d:sonar.token="sqp_a7eae0406d449911d033fd15f59af42c40db6bef"
+          dotnet build Review-Filmes.sln
+          dotnet sonarscanner end /d:sonar.token="sqp_a7eae0406d449911d033fd15f59af42c40db6bef"
+      
+      
+
+
+
+      
+
+
 
       
