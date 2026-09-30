@@ -62,6 +62,7 @@ jobs:
       - name: Setup do jdk
         uses: actions/setup-java@v6
         with:
+          distribution: adopt
           java-version: '25'
 
       - name: Instalação scan sonarqube
