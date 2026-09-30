@@ -24,6 +24,10 @@ jobs:
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
 
+  testes:
+    needs: [build]
+    uses: wesleymlopes/desafio-cicd-01/.github/workflows/testes.yml@main
+
   release:
     name: Criação de release
     runs-on: ubuntu-latest
@@ -48,5 +52,7 @@ jobs:
             tags: |
               gru.ocir.io/grglog7bpvjm/projeto-devops-pro:v${{ github.run_number }}
               gru.ocir.io/grglog7bpvjm/projeto-devops-pro:latest
+
+  
 
         
