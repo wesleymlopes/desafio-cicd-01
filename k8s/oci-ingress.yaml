@@ -40,7 +40,6 @@ metadata:
   namespace: homologacao
 spec:
   ingressClassName: reviewfilmes-oci
-
   rules:
     - host: homologacao.ajotainformaticacloud.com
       http:

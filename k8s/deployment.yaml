@@ -1,10 +1,11 @@
 # ============================================================
-# PostgreSQL_new
+# PostgreSQL Deployment
 # ============================================================
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgre
+  namespace: homologacao
 spec:
   replicas: 1
   selector:
@@ -30,12 +31,13 @@ spec:
 
 ---
 # ============================================================
-# Service PostgreSQL
+# PostgreSQL Service
 # ============================================================
 apiVersion: v1
 kind: Service
 metadata:
   name: postgre
+  namespace: homologacao
 spec:
   selector:
     app: postgre
@@ -46,12 +48,13 @@ spec:
 
 ---
 # ============================================================
-# Aplicação ReviewFilmes
+# Aplicação ReviewFilmes Deployment
 # ============================================================
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reviewfilmes
+  namespace: homologacao
 spec:
   replicas: 1
   selector:
@@ -62,23 +65,16 @@ spec:
       labels:
         app: reviewfilmes
     spec:
-
-      # Necessário caso o repositório OCIR seja privado
       imagePullSecrets:
         - name: ocir-secret
-
       containers:
         - name: reviewfilmes
-
           image: gru.ocir.io/grglog7bpvjm/projeto-devops-pro:latest
-
           env:
             - name: ASPNETCORE_HTTP_PORTS
               value: "8080"
-
             - name: ConnectionStrings__DefaultConnection
               value: "Host=postgre;Port=5432;Database=reviewfilmes;Username=reviewfilmes;Password=Passw0rd2024!"
-
           ports:
             - containerPort: 8080
 
@@ -90,6 +86,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: reviewfilmes
+  namespace: homologacao
 spec:
   selector:
     app: reviewfilmes
@@ -97,28 +94,3 @@ spec:
     - port: 80
       targetPort: 8080
   type: ClusterIP
-
----
-# ============================================================
-# Ingress
-# ============================================================
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: reviewfilmes
-  labels:
-    name: reviewfilmes
-spec:
-  ingressClassName: reviewfilmes-oci
-
-  rules:
-    - host: homologacao.ajotainformaticacloud.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: reviewfilmes
-                port:
-                  number: 80
