@@ -39,7 +39,7 @@ jobs:
 
         - name: Analise do Dockerfile
           uses: hadolint/hadolint-action@v3.1.0
-          witch:
+          with:
             dockerfile: ./src/Review-Filmes.Web/Dockerfile
         
         - name: Login to OCIR
