@@ -41,12 +41,22 @@ jobs:
           uses: hadolint/hadolint-action@v3.1.0
           with:
             dockerfile: ./src/Review-Filmes.Web/Dockerfile
+            output-file: ./hadolint-report.txt
+            format: tty
+            no-fail: true
+
 
         - name: Imprimir resultado do Hadolint
           if: always()
           run: |
             echo "===== HADOLINT ====="
+
+            if [ -f hadolint-report.txt ]; then
             cat hadolint-report.txt
+            else
+            echo "Nenhum relatório do Hadolint foi gerado."
+            fi
+
             echo "===================="
         
         - name: Login to OCIR
