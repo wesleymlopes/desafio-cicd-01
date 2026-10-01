@@ -65,6 +65,19 @@ jobs:
           echo "Configuracao da OCI CLI criada."
 
       # ==========================================================
+      # Kubernetes
+      # ==========================================================
+
+      # ----------------------------------------------------------
+      # Configurar kubeconfig
+      # ----------------------------------------------------------
+      - name: Configuração de contexto do Kubernetes
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+
+      # ==========================================================
       # Aplicar Ingress
       # ==========================================================
       - name: Configurar OCI Native Ingress
