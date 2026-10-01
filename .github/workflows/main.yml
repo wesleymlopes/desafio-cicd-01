@@ -41,6 +41,13 @@ jobs:
           uses: hadolint/hadolint-action@v3.1.0
           with:
             dockerfile: ./src/Review-Filmes.Web/Dockerfile
+
+        - name: Imprimir resultado do Hadolint
+          if: always()
+          run: |
+            echo "===== HADOLINT ====="
+            cat hadolint-report.txt
+            echo "===================="
         
         - name: Login to OCIR
           uses: docker/login-action@v3
@@ -69,7 +76,7 @@ jobs:
             severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
         - name: Upload do arquivo trivy para o github
-          uses: github/codeql-action/upload-sarif@v3
+          uses: github/codeql-action/upload-sarif@v4
           with:
             category: docker-result
             sarif_file: trivy-docker-result.sarif
