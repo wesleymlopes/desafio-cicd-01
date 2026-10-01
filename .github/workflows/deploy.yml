@@ -62,38 +62,7 @@ jobs:
 
           chmod 600 ~/.oci/config
 
-<<<<<<< HEAD
           echo "Configuracao da OCI CLI criada."
-=======
-      # ----------------------------------------------------------
-      # Configurar kubeconfig oke
-      # ----------------------------------------------------------
-      - name: Configuração de contexto do Kubernetes
-        uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.K8S_CONFIG }}
-
-      
-      # ==========================================================
-      # Verificar OCI Native Ingress Controller
-      # ==========================================================
-      - name: Verificar OCI Native Ingress Controller
-        run: |
-          if kubectl get deployment -n native-ingress-controller-system \
-          oci-native-ingress-controller >/dev/null 2>&1; then
-
-          echo "OCI Native Ingress Controller já está instalado."
-
-          else
-
-          echo "OCI Native Ingress Controller não encontrado."
-          echo "Instalar aqui..."
-
-          # comando de instalação
-
-          fi
->>>>>>> 1bceca6 (ajuste)
 
       # ==========================================================
       # Aplicar Ingress
