@@ -96,7 +96,7 @@ spec:
   ports:
     - port: 80
       targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP
 
 ---
 # ============================================================
@@ -109,10 +109,10 @@ metadata:
   labels:
     name: reviewfilmes
 spec:
-  ingressClassName: nginx
+  ingressClassName: reviewfilmes-oci
 
   rules:
-    - host: homologacao.fabricioveronez.com
+    - host: homologacao.ajotainformaticacloud.com
       http:
         paths:
           - path: /

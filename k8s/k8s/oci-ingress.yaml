@@ -1,0 +1,54 @@
+# ============================================================
+# OCI Native Ingress - Parameters
+# ============================================================
+apiVersion: ingress.oraclecloud.com/v1beta1
+kind: IngressClassParameters
+metadata:
+  name: reviewfilmes-ingress-params
+  namespace: native-ingress-controller-system
+spec:
+  compartmentId: "ocid1.compartment.oc1..aaaaaaaafqcoiymm7yngnngta2artr6jrboygfwy3xd2yoyuw3lnrsd2jeba"
+  subnetId: "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaax3gcpsayh54mjopa6nwagxb3c34e7prudaxrw7djj26nwvsi7aha"
+  loadBalancerName: "reviewfilmes-lb"
+  isPrivate: false
+
+---
+# ============================================================
+# OCI Native Ingress - Class
+# ============================================================
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: reviewfilmes-oci
+spec:
+  controller: oci.oraclecloud.com/native-ingress-controller
+  parameters:
+    scope: Namespace
+    namespace: native-ingress-controller-system
+    apiGroup: ingress.oraclecloud.com
+    kind: IngressClassParameters
+    name: reviewfilmes-ingress-params
+
+---
+# ============================================================
+# ReviewFilmes Ingress
+# ============================================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reviewfilmes
+  namespace: homologacao
+spec:
+  ingressClassName: reviewfilmes-oci
+
+  rules:
+    - host: homologacao.ajotainformaticacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: reviewfilmes
+                port:
+                  number: 80
