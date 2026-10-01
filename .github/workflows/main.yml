@@ -46,7 +46,7 @@ jobs:
           with:
             dockerfile: ./src/Review-Filmes.Web/Dockerfile
             output-file: ./hadolint-report.txt
-            format: tty
+            format: text
             no-fail: true
 
 
