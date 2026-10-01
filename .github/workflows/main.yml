@@ -45,23 +45,17 @@ jobs:
           uses: hadolint/hadolint-action@v3.1.0
           with:
             dockerfile: ./src/Review-Filmes.Web/Dockerfile
-            output-file: ./hadolint-report.txt
-            format: text
+            output-file: ./hadolint-report.sarif
+            format: sarif
             no-fail: true
 
 
-        - name: Imprimir resultado do Hadolint
+        - name: Upload Hadolint para Code Scanning  
           if: always()
-          run: |
-            echo "===== HADOLINT ====="
-
-            if [ -f hadolint-report.txt ]; then
-            cat hadolint-report.txt
-            else
-            echo "Nenhum relatório do Hadolint foi gerado."
-            fi
-
-            echo "===================="
+          uses: github/codeql-action/upload-sarif@v4
+          with:
+            sarif_file: hadolint-report.sarif
+            category: hadolint
         
         - name: Login to OCIR
           uses: docker/login-action@v3
