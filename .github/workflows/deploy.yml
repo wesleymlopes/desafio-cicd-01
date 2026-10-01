@@ -105,7 +105,7 @@ jobs:
       # ==========================================================
       - name: Configurar OCI Native Ingress
         run: |
-          kubectl apply -f k8s/ingress-class.yaml
+          kubectl apply -f k8s/oci-ingress.yaml
 
       # ----------------------------------------------------------
       # Aplicar Deployment
