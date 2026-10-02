@@ -99,6 +99,14 @@ jobs:
       - name: Update namespace na oci-ingress
         run: "sed -i 's/namespace: homologacao/namespace: ${{vars.DEPLOY_TARGET}}/g'  k8s/oci-ingress.yaml"
 
+      - name: Validar namespace
+        env:
+          DEPLOY_TARGET: ${{ vars.DEPLOY_TARGET }}
+        run: |
+          grep -q "namespace: ${DEPLOY_TARGET}" k8s/oci-ingress.yaml \
+          && echo "OK - namespace foi trocado" \
+          || { echo "ERRO - namespace não foi trocado"; exit 1; }
+
       # ==========================================================
       # Aplicar Ingress
       # ==========================================================
