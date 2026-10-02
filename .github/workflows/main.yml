@@ -115,14 +115,13 @@ jobs:
         working-directory: ./src
         run: dotnet test Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
     
-
   deploy-producao:
-  needs: [test-e2e]
-  uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
-  with:
-    environment-name: producao
-    environment-url: http://producao.ajotainformaticacloud.com.br
-  secrets: inherit
+    needs: [test-e2e]
+    uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
+    with:
+      environment-name: producao
+      environment-url: http://producao.ajotainformaticacloud.com.br
+    secrets: inherit
 
 
   
