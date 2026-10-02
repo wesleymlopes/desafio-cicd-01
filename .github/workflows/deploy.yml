@@ -90,14 +90,14 @@ jobs:
       - name: Debug namespace
         run: |
           echo "Environment: ${{ job.environment.name }}"
-          echo "BASE_NAMESPACE=${{ vars.BASE_NAMESPACE }}"
+          echo "BASE_NAMESPACE=${{ vars.DEPLOY_TARGET }}"
           grep -n "namespace:" k8s/oci-ingress.yaml
 
       - name: Update rules ingress
         run: "sed -i 's/host: homologacao.ajotainformatica.com.br/host: ${{vars.BASE_URL}}/g' k8s/oci-ingress.yaml"
 
       - name: Update namespace na oci-ingress
-        run: "sed -i 's/namespace: homologacao/namespace: ${{vars.BASE_NAMESPACE}}/g'  k8s/oci-ingress.yaml"
+        run: "sed -i 's/namespace: homologacao/namespace: ${{vars.DEPLOY_TARGET}}/g'  k8s/oci-ingress.yaml"
 
       # ==========================================================
       # Aplicar Ingress

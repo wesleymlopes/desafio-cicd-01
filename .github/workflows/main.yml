@@ -113,9 +113,9 @@ jobs:
 
       - name: Validação BASE_URL
         run: |
-          echo "BASE_URL=$BASE_URL"
+          echo "BASE_URL=$DEPLOY_TARGET"
           getent hosts homologacao.ajotainformaticacloud.com.br || true
-          curl -v --connect-timeout 10 "$BASE_URL" || true
+          curl -v --connect-timeout 10 "$DEPLOY_TARGET" || true
 
       - name: Execução do teste End to End
         working-directory: ./src
