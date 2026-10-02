@@ -5,7 +5,7 @@ apiVersion: ingress.oraclecloud.com/v1beta1
 kind: IngressClassParameters
 metadata:
   name: reviewfilmes-ingress-params
-  namespace: native-ingress-controller-system
+  namespace: homologacao
 spec:
   compartmentId: "ocid1.compartment.oc1..aaaaaaaafqcoiymm7yngnngta2artr6jrboygfwy3xd2yoyuw3lnrsd2jeba"
   subnetId: "ocid1.subnet.oc1.sa-saopaulo-1.aaaaaaaax3gcpsayh54mjopa6nwagxb3c34e7prudaxrw7djj26nwvsi7aha"
@@ -24,7 +24,7 @@ spec:
   controller: oci.oraclecloud.com/native-ingress-controller
   parameters:
     scope: Namespace
-    namespace: native-ingress-controller-system
+    namespace: homologacao
     apiGroup: ingress.oraclecloud.com
     kind: IngressClassParameters
     name: reviewfilmes-ingress-params
@@ -38,10 +38,12 @@ kind: Ingress
 metadata:
   name: reviewfilmes
   namespace: homologacao
+  annotations: 
+    oci.oraclecloud.com/load-balancer-type: "lb"
 spec:
   ingressClassName: reviewfilmes-oci
   rules:
-    - host: homologacao.ajotainformaticacloud.com
+    - host: homologacao.ajotainformaticacloud.com.br
       http:
         paths:
           - path: /
