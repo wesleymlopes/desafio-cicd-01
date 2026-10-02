@@ -92,6 +92,8 @@ jobs:
   deploy-homologacao:
     needs: [release]
     uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
+    with:
+      namespace: producao
     secrets: inherit
 
 
