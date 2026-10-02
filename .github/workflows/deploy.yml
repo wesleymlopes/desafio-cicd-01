@@ -87,6 +87,12 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
 
+      - name: Debug namespace
+        run: |
+          echo "Environment: ${{ job.environment.name }}"
+          echo "BASE_NAMESPACE=${{ vars.BASE_NAMESPACE }}"
+          grep -n "namespace:" k8s/oci-ingress.yaml
+
       - name: Update rules ingress
         run: "sed -i 's/host: homologacao.ajotainformatica.com.br/host: ${{vars.BASE_URL}}/g' k8s/oci-ingress.yaml"
 
