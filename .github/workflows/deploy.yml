@@ -79,7 +79,7 @@ jobs:
       # ==========================================================
 
       # ----------------------------------------------------------
-      # Configurar kubeconfig
+      # Configurar  kubeconfig
       # ----------------------------------------------------------
       - name: Configuração de contexto do Kubernetes
         uses: azure/k8s-set-context@v4
