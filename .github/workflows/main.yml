@@ -97,23 +97,23 @@ jobs:
       environment-url: http://homologacao.ajotainformaticacloud.com.br
     secrets: inherit
 
-    test-e2e:
-      name: Teste End to End
-      runs-on: ubuntu-latest
-      needs: [deploy-homologacao]
-      environment:
-        name: homologacao
-      container:
-        image: docker.io/fabricioveronez/webdriver-dotnet:chrome
-        env:
-          BASE_URL: "http://${{vars.BASE_URL}}"
-      steps:
-        - name: obtendo o codigo do projeto
-          uses: actions/checkout@v4
+  test-e2e:
+    name: Teste End to End
+    runs-on: ubuntu-latest
+    needs: [deploy-homologacao]
+    environment:
+      name: homologacao
+    container:
+      image: docker.io/fabricioveronez/webdriver-dotnet:chrome
+      env:
+      BASE_URL: "http://${{vars.BASE_URL}}"
+    steps:
+      - name: obtendo o codigo do projeto
+        uses: actions/checkout@v4
 
-        - name: Execução do teste End to End
-          working-directory: ./src
-          run: dotnet test Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
+      - name: Execução do teste End to End
+        working-directory: ./src
+        run: dotnet test Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
     
 
     deploy-producao:
