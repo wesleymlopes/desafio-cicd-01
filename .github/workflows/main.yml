@@ -111,7 +111,7 @@ jobs:
       - name: obtendo o codigo do projeto
         uses: actions/checkout@v4
 
-      - name: Validar BASE_URL
+      - name: Validação BASE_URL
         run: |
           echo "BASE_URL=$BASE_URL"
           getent hosts homologacao.ajotainformaticacloud.com.br || true
