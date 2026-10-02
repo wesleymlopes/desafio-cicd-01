@@ -90,6 +90,9 @@ jobs:
       - name: Update rules ingress
         run: "sed -i 's/host: homologacao.ajotainformatica.com.br/host: ${{vars.BASE_URL}}/g' k8s/oci-ingress.yaml"
 
+      - name: Update namespace na oci-ingress
+        run: "sed -i 's/namespace: homologacao/namespace: ${{vars.BASE_NAMESPACE}}/g'  k8s/oci-ingress.yam"
+
       # ==========================================================
       # Aplicar Ingress
       # ==========================================================
