@@ -93,7 +93,8 @@ jobs:
     needs: [release]
     uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
     with:
-      namespace: producao
+      environment-name: homologacao
+      environment-url: http://homologacao.ajotainformaticacloud.com.br
     secrets: inherit
 
 
