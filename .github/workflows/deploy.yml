@@ -94,7 +94,7 @@ jobs:
           grep -n "namespace:" k8s/oci-ingress.yaml
 
       - name: Update rules ingress
-        run: "sed -i 's/host: homologacao.ajotainformatica.com.br/host: ${{vars.BASE_URL}}/g' k8s/oci-ingress.yaml"
+        run: "sed -i 's/host: homologacao.ajotainformaticacloud.com.br/host: ${{vars.BASE_URL}}/g' k8s/oci-ingress.yaml"
 
       - name: Update namespace na oci-ingress
         run: "sed -i 's/namespace: homologacao/namespace: ${{vars.DEPLOY_TARGET}}/g'  k8s/oci-ingress.yaml"
