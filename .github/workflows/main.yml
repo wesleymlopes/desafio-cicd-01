@@ -106,7 +106,7 @@ jobs:
     container:
       image: docker.io/fabricioveronez/webdriver-dotnet:chrome
       env:
-      BASE_URL: "http://${{vars.BASE_URL}}"
+        BASE_URL: "http://${{vars.BASE_URL}}"
     steps:
       - name: obtendo o codigo do projeto
         uses: actions/checkout@v4
@@ -116,13 +116,13 @@ jobs:
         run: dotnet test Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
     
 
-    deploy-producao:
-    needs: [test-e2e]
-    uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
-    with:
-      environment-name: producao
-      environment-url: http://producao.ajotainformaticacloud.com.br
-    secrets: inherit
+  deploy-producao:
+  needs: [test-e2e]
+  uses: wesleymlopes/desafio-cicd-01/.github/workflows/deploy.yml@main
+  with:
+    environment-name: producao
+    environment-url: http://producao.ajotainformaticacloud.com.br
+  secrets: inherit
 
 
   
