@@ -53,13 +53,3 @@ spec:
                 name: reviewfilmes
                 port:
                   number: 80
-    - host: producao.ajotainformaticacloud.com.br
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: reviewfilmesprod
-                port:
-                  number: 80
