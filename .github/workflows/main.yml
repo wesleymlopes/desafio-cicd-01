@@ -111,6 +111,12 @@ jobs:
       - name: obtendo o codigo do projeto
         uses: actions/checkout@v4
 
+      - name: Validar BASE_URL
+        run: |
+          echo "BASE_URL=$BASE_URL"
+          getent hosts homologacao.ajotainformaticacloud.com.br || true
+          curl -v --connect-timeout 10 "$BASE_URL" || true
+
       - name: Execução do teste End to End
         working-directory: ./src
         run: dotnet test Review-Filmes.Test.EndToEnd/Review-Filmes.Test.EndToEnd.csproj
